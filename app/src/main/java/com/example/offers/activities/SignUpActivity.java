@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.util.Patterns;
 
 public class   SignUpActivity extends AppCompatActivity {
 
@@ -55,18 +56,16 @@ public class   SignUpActivity extends AppCompatActivity {
         String email=inputEmail.getText().toString();
         String password=inputPassword.getText().toString();
         String repassword=inputRepassword.getText().toString();
+        boolean isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
-        if(!email.matches(emailPattern)){
-            inputEmail.setError("Enter Correct Email");
-        }else if(password.isEmpty() || password.length()<8)
-        {
-            inputPassword.setError("Enter Correct Password Format");
-        }else if(!password.equals(repassword))
-        {
-            inputRepassword.setError("Password Does Not Match");
-        }else if (name.isEmpty())
-        {
-            inputUsername.setError("Enter Username");
+        if (!isEmailValid) {
+            inputEmail.setError("Enter a valid email address");
+        } else if (password.isEmpty() || password.length() < 8) {
+            inputPassword.setError("Enter a password with at least 8 characters");
+        } else if (!password.equals(repassword)) {
+            inputRepassword.setError("Passwords do not match");
+        } else if (name.isEmpty()) {
+            inputUsername.setError("Enter a username");
         }else
         {
             progressDialog.setMessage("Please Wait While Signing Up ....");

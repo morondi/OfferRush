@@ -136,6 +136,16 @@
             android:layout_height="48dp"
             android:layout_margin="20dp"
             android:src="@drawable/twitter" />
+
     </LinearLayout>
+    <TextView
+        android:id="@+id/alreadyHaveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/info"
+        android:layout_centerHorizontal="true"
+        android:text="Already have an account?"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>
