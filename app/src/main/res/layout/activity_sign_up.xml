@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
+    android:background="@drawable/background"
     tools:context=".activities.SignUpActivity">
 
     <TextView
@@ -107,10 +107,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/socialicons"
+        android:layout_centerHorizontal="true"
         android:text="or sign up with"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/blue"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/socialicons"
@@ -138,6 +138,7 @@
             android:src="@drawable/twitter" />
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/alreadyHaveAccount"
         android:layout_width="wrap_content"
@@ -145,7 +146,7 @@
         android:layout_above="@id/info"
         android:layout_centerHorizontal="true"
         android:text="Already have an account?"
-        android:textColor="@color/white"
+        android:textColor="@color/blue"
         android:textSize="16sp" />
 
 </RelativeLayout>
