@@ -109,7 +109,7 @@
         android:layout_above="@id/socialicons"
         android:layout_centerHorizontal="true"
         android:text="or sign up with"
-        android:textColor="@color/blue"
+        android:textColor="@color/backgroundColor"
         android:textSize="16sp" />
 
     <LinearLayout

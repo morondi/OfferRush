@@ -19,7 +19,7 @@
         android:gravity="center"/>
 
     <EditText
-        android:id="@+id/inputUsername"
+        android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/signin"
@@ -30,7 +30,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
-        android:hint="Username"
+        android:hint="Email"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -39,7 +39,7 @@
         android:id="@+id/inputPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputUsername"
+        android:layout_below="@id/inputEmail"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -97,10 +97,11 @@
 
 
         <ImageView
+            android:id="@+id/btnGoogle"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="20dp"
-            android:src="@drawable/google"/>
+            android:src="@drawable/google" />
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -113,6 +114,16 @@
             android:src="@drawable/twitter"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/createnewAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/others"
+        android:layout_centerHorizontal="true"
+        android:text="Create New Account"
+        android:textColor="@color/blue"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

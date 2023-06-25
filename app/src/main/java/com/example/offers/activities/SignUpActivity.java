@@ -7,8 +7,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.offers.R;
@@ -21,6 +23,8 @@ import android.util.Patterns;
 
 public class   SignUpActivity extends AppCompatActivity {
 
+    TextView alreadyHaveAccount;
+
     EditText inputUsername,inputEmail,inputPassword,inputRepassword;
     Button signupbtn;
     String emailPattern = "[a-zA-Z0-9._-]+[a-z]+\\.+[a-z]+";
@@ -32,6 +36,9 @@ public class   SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        alreadyHaveAccount=findViewById(R.id.alreadyHaveAccount);
 
         inputUsername=findViewById(R.id.inputUsername);
         inputEmail=findViewById(R.id.inputEmail);
@@ -42,6 +49,12 @@ public class   SignUpActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
 
+        alreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignUpActivity.this,SignInActivity.class));
+            }
+        });
 
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
