@@ -39,9 +39,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-
 public class CheckoutActivity extends AppCompatActivity {
 
     ActivityCheckoutBinding binding;
@@ -52,23 +49,11 @@ public class CheckoutActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     Cart cart;
 
-    private static final String PREFS_NAME = "CheckoutPrefs";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PHONE = "phone";
-    private static final String KEY_ADDRESS = "address";
-    private static final String KEY_COMMENT = "comment";
-
-    private SharedPreferences sharedPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        loadSavedDetails();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -114,36 +99,6 @@ public class CheckoutActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    private void loadSavedDetails() {
-        String name = sharedPreferences.getString(KEY_NAME, "");
-        String email = sharedPreferences.getString(KEY_EMAIL, "");
-        String phone = sharedPreferences.getString(KEY_PHONE, "");
-        String address = sharedPreferences.getString(KEY_ADDRESS, "");
-        String comment = sharedPreferences.getString(KEY_COMMENT, "");
-
-        binding.nameBox.setText(name);
-        binding.emailBox.setText(email);
-        binding.phoneBox.setText(phone);
-        binding.addressBox.setText(address);
-        binding.commentBox.setText(comment);
-    }
-
-    private void saveDetails() {
-        String name = binding.nameBox.getText().toString();
-        String email = binding.emailBox.getText().toString();
-        String phone = binding.phoneBox.getText().toString();
-        String address = binding.addressBox.getText().toString();
-        String comment = binding.commentBox.getText().toString();
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_NAME, name);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_PHONE, phone);
-        editor.putString(KEY_ADDRESS, address);
-        editor.putString(KEY_COMMENT, comment);
-        editor.apply();
-    }
-
 
     void processOrder(){
         progressDialog.show();
@@ -243,12 +198,6 @@ public class CheckoutActivity extends AppCompatActivity {
         };
 
         queue.add(request);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        saveDetails();
     }
 
     @Override
