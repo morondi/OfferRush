@@ -1,6 +1,7 @@
 package com.example.offers.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -16,6 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.offers.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,7 +39,11 @@ public class SignInActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    ImageView btnGoogle;
+
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    ImageView googleBtn;
 
 
     @Override
@@ -47,7 +57,6 @@ public class SignInActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
         loginbtn = findViewById(R.id.loginbtn);
-        btnGoogle = findViewById(R.id.btnGoogle);
 
 
         progressDialog = new ProgressDialog(this);
@@ -66,13 +75,7 @@ public class SignInActivity extends AppCompatActivity {
                 perforLogin();
             }
         });
-        btnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(SignInActivity.this,GoogleSignInActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     private void perforLogin() {
@@ -110,6 +113,46 @@ public class SignInActivity extends AppCompatActivity {
     private void sendUserToNextActivity () {
         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+        googleBtn=findViewById(R.id.googleBtn);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc= GoogleSignIn.getClient(this,gso);
+
+        googleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               signIn();
+            }
+        });
+    }
+
+    private void signIn() {
+        Intent signInIntent= gsc.getSignInIntent();
+        startActivityForResult(signInIntent,1000);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+                navigateToSecondActivity();
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void navigateToSecondActivity() {
+        finish();
+        Intent intent = new Intent(SignInActivity.this,GoogleSignInActivity.class);
         startActivity(intent);
     }
 }
